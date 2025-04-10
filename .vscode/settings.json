@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Infinite Runner.sln"
+    "dotnet.defaultSolution": "Endless Runner.sln"
 }
