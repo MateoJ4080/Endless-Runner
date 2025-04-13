@@ -138,6 +138,8 @@ Material:
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _TileStrength: 0
+    - _TileStrengthX: 1
+    - _TileStrengthY: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
