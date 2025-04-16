@@ -141,7 +141,7 @@ Material:
     - _TileStrength: 1
     - _TileStrengthX: 5
     - _TileStrengthY: 3
-    - _Tiling_Multiplier: 0.15
+    - _Tiling_Multiplier: 0.8
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
