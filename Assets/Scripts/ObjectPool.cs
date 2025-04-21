@@ -7,7 +7,8 @@ public class ObjectPool : MonoBehaviour
     // Assign in the inspector
     [SerializeField] string poolID;
     [SerializeField] private GameObject prefab;
-    [SerializeField] private Queue<GameObject> _pool = new();
+    [SerializeField] private Queue<GameObject> pool = new();
+    public Queue<GameObject> Pool => pool;
     [SerializeField] private int _poolInitialSize;
 
     // This variable is only to use with the objects that are already in the scene when the game starts, to be able to
@@ -21,15 +22,17 @@ public class ObjectPool : MonoBehaviour
         AddExistingObjectsToPool();
         for (int i = 0; i < _poolInitialSize - predefinedObjects.Length; i++) AddNewObjectToPool();
 
+        // Register pool in pools dictionary from PoolManager
         PoolManager.Instance.RegisterPool(poolID, this);
     }
 
-    public GameObject GetFromPool()
+    public GameObject GetFromPool(SpawnConfig config)
     {
-        if (_pool.Count == 0)
+        if (pool.Count == 0)
             AddNewObjectToPool();
 
-        GameObject obj = _pool.Dequeue();
+        GameObject obj = pool.Dequeue();
+        obj.transform.position = new(0, 0, config.respawnAtZ);
         obj.SetActive(true);
         return obj;
     }
@@ -39,7 +42,7 @@ public class ObjectPool : MonoBehaviour
         obj.GetComponent<IPoolable>()?.OnDespawn();
 
         obj.SetActive(false);
-        _pool.Enqueue(obj);
+        pool.Enqueue(obj);
     }
 
     public void AddNewObjectToPool()
@@ -47,7 +50,7 @@ public class ObjectPool : MonoBehaviour
         GameObject obj = Instantiate(prefab);
 
         obj.SetActive(false);
-        _pool.Enqueue(obj);
+        pool.Enqueue(obj);
     }
 
     // Used for objects already in the scene before starting the instantiating in loop.    
@@ -55,7 +58,9 @@ public class ObjectPool : MonoBehaviour
     {
         foreach (var obj in predefinedObjects)
         {
-            _pool.Enqueue(obj);
+            Debug.Log($"Adding {obj.name} to the end of the Queue");
+            obj.SetActive(true);
+            pool.Enqueue(obj);
         }
     }
 }

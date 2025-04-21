@@ -502,6 +502,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Road3
       objectReference: {fileID: 0}
+    - target: {fileID: 2362151381501548249, guid: fe579ad5783e327489c9846b809bafc2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5368345673815005988, guid: fe579ad5783e327489c9846b809bafc2, type: 3}
       propertyPath: m_LocalScale.x
       value: 2
@@ -516,7 +520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5368345673815005988, guid: fe579ad5783e327489c9846b809bafc2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 5368345673815005988, guid: fe579ad5783e327489c9846b809bafc2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -918,7 +922,7 @@ Transform:
   m_GameObject: {fileID: 1374900683}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 143.8382, y: -135.91231, z: -269.73566}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -994,7 +998,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5368345673815005988, guid: fe579ad5783e327489c9846b809bafc2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 200
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5368345673815005988, guid: fe579ad5783e327489c9846b809bafc2, type: 3}
       propertyPath: m_LocalRotation.w

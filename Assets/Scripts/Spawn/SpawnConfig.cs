@@ -6,7 +6,7 @@ public class SpawnConfig : ScriptableObject
 {
     public string poolID;
     public float speed;
-    public float despawnAt;
-    public Vector3 respawnAt;
+    public float despawnAtZ;
+    public float respawnAtZ;
     public Transform spawnParent;
 }

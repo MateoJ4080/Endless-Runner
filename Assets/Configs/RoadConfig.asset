@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RoadConfig
   m_EditorClassIdentifier: 
   poolID: road
-  speed: 0
-  despawnAt: -100
-  respawnAt: {x: 0, y: 0, z: 100}
+  speed: 30
+  despawnAtZ: -100
+  respawnAtZ: 200
   spawnParent: {fileID: 0}

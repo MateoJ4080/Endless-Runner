@@ -15,8 +15,7 @@ public class Mover : MonoBehaviour
 
         if (transform.position.z <= despawnZ)
         {
-            OnDespawned?.Invoke(poolID);
-            PoolManager.Instance.Return(poolID, gameObject);
+            // PoolManager.Instance.Return(poolID, gameObject);
         }
     }
 }
