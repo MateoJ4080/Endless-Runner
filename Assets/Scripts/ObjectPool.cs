@@ -20,19 +20,24 @@ public class ObjectPool : MonoBehaviour
     void Awake()
     {
         AddExistingObjectsToPool();
+
         for (int i = 0; i < _poolInitialSize - predefinedObjects.Length; i++) AddNewObjectToPool();
 
         // Register pool in pools dictionary from PoolManager
         PoolManager.Instance.RegisterPool(poolID, this);
     }
 
+    // Use next object in queue in the scene
     public GameObject GetFromPool(SpawnConfig config)
     {
         if (pool.Count == 0)
             AddNewObjectToPool();
 
         GameObject obj = pool.Dequeue();
-        obj.transform.position = new(0, 0, config.respawnAtZ);
+        GameObject roadBeforeThisOne = pool.ToArray()[1];
+
+        obj.transform.position = roadBeforeThisOne.transform.position + new Vector3(0, 0, 100);
+        Debug.Log($"<color=green>Respawned at Z: {obj.transform.position}");
         obj.SetActive(true);
         return obj;
     }
@@ -41,6 +46,7 @@ public class ObjectPool : MonoBehaviour
     {
         obj.GetComponent<IPoolable>()?.OnDespawn();
 
+        Debug.Log($"<color=red>Despawned at Z: {obj.transform.position.z}");
         obj.SetActive(false);
         pool.Enqueue(obj);
     }

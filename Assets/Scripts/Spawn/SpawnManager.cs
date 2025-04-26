@@ -4,26 +4,18 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    private GameObject currentGO;
+    // Add in the inspector after creating a new config. - How to create a new config: Follow this path in the assets menu: "Right click > Create > Spawning > Spawnconfig".
     public List<SpawnConfig> configs;
 
     void Start()
     {
-        Debug.Log(PoolManager.Instance.PeekAt("road").name);
-
         // Start coroutine for each pool working with a config
         foreach (var config in configs) StartCoroutine(SpawnRoutine(config));
     }
 
-    void Update()
-    {
-        Debug.Log($"Peeking at: {currentGO.name}");
-    }
-
     IEnumerator SpawnRoutine(SpawnConfig config)
     {
-        currentGO = PoolManager.Instance.PeekAt(config.poolID);
-        Debug.Log("<color=green>Outside code");
+        GameObject currentGO = PoolManager.Instance.PeekAt(config.poolID);
         while (true)
         {
             Debug.Log("<color=yellow>Executing...");
@@ -33,7 +25,7 @@ public class SpawnManager : MonoBehaviour
             PoolManager.Instance.Return(config.poolID, currentGO);
             // Instantiates object at the end of scenario, using respawnAt reference from "config"
             PoolManager.Instance.Get(config);
-            // Takes next object from pool
+            // Take next object from pool
             currentGO = PoolManager.Instance.PeekAt(config.poolID);
         }
     }

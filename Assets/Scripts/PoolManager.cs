@@ -27,16 +27,16 @@ public class PoolManager : MonoBehaviour
     // Register new pool to work with
     public void RegisterPool(string id, ObjectPool pool)
     {
-        // Avoid registering pool with the same id
         if (!pools.ContainsKey(id)) pools.Add(id, pool);
         else Debug.LogError("Pool ID already in use for pool: <color:yellow>" + pool.name);
     }
 
-    // Returns next object in Queue from pool. Gets the right pool using an ID from SpawnConfig.cs.
+    // Return next object in Queue from pool. Gets the right pool using an ID from SpawnConfig.cs.
     public GameObject Get(SpawnConfig config)
     {
-        // Tries to find pool in dictionary to return object
+        // Try to take pool from dictionary bye value
         if (pools.TryGetValue(config.poolID, out var pool))
+            // Return object
             return pool.GetFromPool(config);
 
         Debug.LogWarning($"No pool registered with ID: {config.poolID}");
