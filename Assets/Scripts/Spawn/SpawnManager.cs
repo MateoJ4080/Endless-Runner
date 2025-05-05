@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    [SerializeField] private GameObject[] obstaclesPrefabs;
+
+    private float _spawnPointZ;
+
     // Add in the inspector after creating a new config. - How to create a new config: Follow this path in the assets menu: "Right click > Create > Spawning > Spawnconfig".
     public List<SpawnConfig> configs;
 
@@ -18,15 +22,19 @@ public class SpawnManager : MonoBehaviour
         GameObject currentGO = PoolManager.Instance.PeekAt(config.poolID);
         while (true)
         {
-            Debug.Log("<color=yellow>Executing...");
-            // Wait until object is at his despawn position
             yield return new WaitUntil(() => currentGO.transform.position.z <= config.despawnAtZ);
-            // Returns object at the end of the Queue and SetActive(false)
-            PoolManager.Instance.Return(config.poolID, currentGO);
-            // Instantiates object at the end of scenario, using respawnAt reference from "config"
-            PoolManager.Instance.Get(config);
-            // Take next object from pool
+            SpawnSection(currentGO, config);
+
+            // Take object from pool to respawn on next iteration
             currentGO = PoolManager.Instance.PeekAt(config.poolID);
         }
+    }
+
+    void SpawnSection(GameObject currentGO, SpawnConfig config)
+    {
+        // Returns object at the end of the Queue and SetActive(false)
+        PoolManager.Instance.Return(config.poolID, currentGO);
+        // Instantiates object at the end of scenario, using respawnAt reference from "config"
+        PoolManager.Instance.Get(config);
     }
 }
