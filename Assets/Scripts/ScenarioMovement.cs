@@ -6,10 +6,20 @@ public class ScenarioMovement : MonoBehaviour
 {
     public static event Action<string> OnDespawned;
 
+    private bool _shouldMove;
     private float _speed = 40f;
 
     void Update()
     {
-        transform.position += Vector3.back * _speed * Time.deltaTime;
+        if (_shouldMove)
+        {
+            transform.position += Vector3.back * _speed * Time.deltaTime;
+
+        }
+    }
+
+    public void EnableMovement()
+    {
+        _shouldMove = true;
     }
 }
