@@ -5,7 +5,7 @@ using System;
 
 public class CameraMovement : MonoBehaviour
 {
-    private Vector3 camMenuPosition = new(4.3f, 3.6f, -45.6f);
+    private Vector3 camMenuPosition = new(4.4f, 3.6f, -46f);
     private Vector3 camMenuRotation = new(7, -14, 0);
     private Vector3 camInGamePosition = new(0, 6.7f, -47.8f);
     private Vector3 camInGameRotation = new(15, 0, 0);
