@@ -181,7 +181,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 50, y: -294.05786}
-  m_SizeDelta: {x: 0, y: 75.4451}
+  m_SizeDelta: {x: 257.64, y: 75.4451}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &10910720
 MonoBehaviour:
@@ -3013,6 +3013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transitionSpeed: 30
+  cameraMovement: {fileID: 330585548}
 --- !u!1001 &1954221835
 PrefabInstance:
   m_ObjectHideFlags: 0

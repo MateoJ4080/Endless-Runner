@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private int _transitionSpeed;
 
+    [SerializeField] private CameraMovement cameraMovement;
     private PlayerControls _playerControls;
 
     void Awake()
@@ -25,14 +26,11 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(_currentRail);
         Vector3 targetPos = _railPositions[_currentRail];
         transform.position = Vector3.MoveTowards(transform.position, targetPos, _transitionSpeed * Time.deltaTime);
-
     }
 
     void OnEnable()
     {
-        _playerControls.Enable();
-        _playerControls.Player.MoveLeft.performed += OnMoveLeft;
-        _playerControls.Player.MoveRight.performed += OnMoveRight;
+        cameraMovement.OnCameraTransitionComplete += ActivateControls;
     }
 
     void OnDisable()
@@ -60,5 +58,11 @@ public class PlayerMovement : MonoBehaviour
             _currentRail++;
             _currentRail = Mathf.Clamp(_currentRail, 0, _railPositions.Length - 1);
         }
+    }
+    public void ActivateControls()
+    {
+        _playerControls.Enable();
+        _playerControls.Player.MoveLeft.performed += OnMoveLeft;
+        _playerControls.Player.MoveRight.performed += OnMoveRight;
     }
 }
