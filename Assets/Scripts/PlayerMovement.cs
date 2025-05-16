@@ -1,59 +1,54 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Vector3[] railPositions = new Vector3[]
+    private Vector3[] _railPositions = new Vector3[]
     {
-        new Vector3(-3.9f, 1f, -41f), // Left
-        new Vector3(0f, 1f, -41f),  // Center
-        new Vector3(3.9f, 1f, -41f)   // Right
+        new Vector3(-3.9f, 0f, -41f), // Left
+        new Vector3(0f, 0f, -41f),    // Center
+        new Vector3(3.9f, 0f, -41f)   // Right
     };
-    private int currentRail;
+    private int _currentRail = 1;
 
-    [SerializeField] private int transitionSpeed;
+    [SerializeField] private int _transitionSpeed;
 
-    private PlayerControls playerControls;
+    private PlayerControls _playerControls;
 
     void Awake()
     {
-        playerControls = new();
-    }
-
-    void Start()
-    {
-        currentRail = 0;
+        _playerControls = new();
     }
 
     void Update()
     {
-        Vector3 targetPos = railPositions[currentRail];
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, transitionSpeed * Time.deltaTime);
+        Debug.Log(_currentRail);
+        Vector3 targetPos = _railPositions[_currentRail];
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, _transitionSpeed * Time.deltaTime);
+
     }
 
     void OnEnable()
     {
-        playerControls.Enable();
-        playerControls.Player.MoveLeft.performed += OnMoveLeft;
-        playerControls.Player.MoveRight.performed += OnMoveRight;
+        _playerControls.Enable();
+        _playerControls.Player.MoveLeft.performed += OnMoveLeft;
+        _playerControls.Player.MoveRight.performed += OnMoveRight;
     }
 
     void OnDisable()
     {
-        playerControls.Player.MoveLeft.performed -= OnMoveLeft;
-        playerControls.Player.MoveRight.performed -= OnMoveRight;
-        playerControls.Disable();
+        _playerControls.Player.MoveLeft.performed -= OnMoveLeft;
+        _playerControls.Player.MoveRight.performed -= OnMoveRight;
+        _playerControls.Disable();
     }
 
     public void OnMoveLeft(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            Debug.Log("OnLeft Performed");
-            currentRail--;
-            currentRail = Mathf.Clamp(currentRail, 0, railPositions.Length - 1);
-            UpdateTargetPosition(railPositions[currentRail]);
+            // Debug.Log("OnLeft Performed");
+            _currentRail--;
+            _currentRail = Mathf.Clamp(_currentRail, 0, _railPositions.Length - 1);
         }
     }
 
@@ -61,16 +56,9 @@ public class PlayerMovement : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("OnRight Performed");
-            currentRail++;
-            currentRail = Mathf.Clamp(currentRail, 0, railPositions.Length - 1);
-            UpdateTargetPosition(railPositions[currentRail]);
+            // Debug.Log("OnRight Performed");
+            _currentRail++;
+            _currentRail = Mathf.Clamp(_currentRail, 0, _railPositions.Length - 1);
         }
-    }
-
-    private void UpdateTargetPosition(Vector3 targetPosition)
-    {
-        Vector3 target = targetPosition;
-        transform.position = Vector3.MoveTowards(transform.position, target, transitionSpeed * Time.deltaTime);
     }
 }
