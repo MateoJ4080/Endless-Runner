@@ -3000,6 +3000,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3862277631971027947, guid: 7ae956b4f54394e80818898d8f4d30c6, type: 3}
   m_PrefabInstance: {fileID: 1851906043}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1851906048 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5615815007780928290, guid: 7ae956b4f54394e80818898d8f4d30c6, type: 3}
+  m_PrefabInstance: {fileID: 1851906043}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1851906050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3013,7 +3018,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transitionSpeed: 30
-  cameraMovement: {fileID: 330585548}
+  _cameraMovement: {fileID: 330585548}
+  _animator: {fileID: 1851906048}
 --- !u!1001 &1954221835
 PrefabInstance:
   m_ObjectHideFlags: 0

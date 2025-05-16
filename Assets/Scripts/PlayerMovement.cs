@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,7 +14,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private int _transitionSpeed;
 
-    [SerializeField] private CameraMovement cameraMovement;
+    [SerializeField] private CameraMovement _cameraMovement;
+    [SerializeField] private Animator _animator;
     private PlayerControls _playerControls;
 
     void Awake()
@@ -30,17 +32,18 @@ public class PlayerMovement : MonoBehaviour
 
     void OnEnable()
     {
-        cameraMovement.OnCameraTransitionComplete += ActivateControls;
+        _cameraMovement.OnCameraTransitionComplete += ActivateControls;
     }
 
     void OnDisable()
     {
         _playerControls.Player.MoveLeft.performed -= OnMoveLeft;
         _playerControls.Player.MoveRight.performed -= OnMoveRight;
+        _playerControls.Player.Slide.performed -= OnSlide;
         _playerControls.Disable();
     }
 
-    public void OnMoveLeft(InputAction.CallbackContext context)
+    void OnMoveLeft(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -50,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void OnMoveRight(InputAction.CallbackContext context)
+    void OnMoveRight(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -59,10 +62,17 @@ public class PlayerMovement : MonoBehaviour
             _currentRail = Mathf.Clamp(_currentRail, 0, _railPositions.Length - 1);
         }
     }
-    public void ActivateControls()
+
+    void OnSlide(InputAction.CallbackContext context)
+    {
+        _animator.SetTrigger("Slide");
+    }
+
+    void ActivateControls()
     {
         _playerControls.Enable();
         _playerControls.Player.MoveLeft.performed += OnMoveLeft;
         _playerControls.Player.MoveRight.performed += OnMoveRight;
+        _playerControls.Player.Slide.performed += OnSlide;
     }
 }

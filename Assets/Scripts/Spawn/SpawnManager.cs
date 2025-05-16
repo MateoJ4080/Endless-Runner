@@ -6,9 +6,8 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] obstaclesPrefabs;
 
-    private float _spawnPointZ;
-
-    // Add in the inspector after creating a new config. - How to create a new config: Follow this path in the assets menu: "Right click > Create > Spawning > Spawnconfig".
+    // Add in the inspector after creating a new config. 
+    // - How to create a new config: Follow this path in the assets menu: "Right click > Create > Spawning > Spawnconfig".
     public List<SpawnConfig> configs;
 
     void Start()
