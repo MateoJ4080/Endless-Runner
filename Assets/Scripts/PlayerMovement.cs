@@ -65,6 +65,9 @@ public class PlayerMovement : MonoBehaviour
 
     void OnSlide(InputAction.CallbackContext context)
     {
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Slide")) return;
+
+        _animator.ResetTrigger("Slide");
         _animator.SetTrigger("Slide");
     }
 
