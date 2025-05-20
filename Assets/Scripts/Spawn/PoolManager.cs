@@ -32,7 +32,7 @@ public class PoolManager : MonoBehaviour
     }
 
     // Return next object in Queue from pool. Gets the right pool using an ID from SpawnConfig.cs.
-    public GameObject Get(SpawnConfig config)
+    public GameObject Spawn(SpawnConfig config)
     {
         // Try to take pool from dictionary bye value
         if (pools.TryGetValue(config.poolID, out var pool))
@@ -44,7 +44,7 @@ public class PoolManager : MonoBehaviour
     }
 
     // Return object to pool. Get the right pool using an ID
-    public void Return(string id, GameObject obj)
+    public void Despawn(string id, GameObject obj)
     {
         if (pools.TryGetValue(id, out var pool))
             pool.ReturnToPool(obj);

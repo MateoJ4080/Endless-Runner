@@ -24,7 +24,7 @@ public class SpawnManager : MonoBehaviour
             yield return new WaitUntil(() => currentGO.transform.position.z <= config.despawnAtZ);
             SpawnSection(currentGO, config);
 
-            // Take object from pool to respawn on next iteration
+            // Take reference of last object in pool to respawn it on next iteration
             currentGO = PoolManager.Instance.PeekAt(config.poolID);
         }
     }
@@ -32,8 +32,8 @@ public class SpawnManager : MonoBehaviour
     void SpawnSection(GameObject currentGO, SpawnConfig config)
     {
         // Returns object at the end of the Queue and SetActive(false)
-        PoolManager.Instance.Return(config.poolID, currentGO);
+        PoolManager.Instance.Despawn(config.poolID, currentGO);
         // Instantiates object at the end of scenario, using respawnAt reference from "config"
-        PoolManager.Instance.Get(config);
+        PoolManager.Instance.Spawn(config);
     }
 }

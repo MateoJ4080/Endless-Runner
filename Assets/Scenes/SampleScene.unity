@@ -2394,7 +2394,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnManager
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2410,7 +2410,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 039d87cccd7484b4380c8bd7cfcbd3e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obstaclesPrefabs: []
+  obstaclesPrefabs:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   configs:
   - {fileID: 11400000, guid: f76a95581d278cd4d8606681fee00e79, type: 2}
   - {fileID: 11400000, guid: 3dd665ad66d3e5244ab8515ddbf5c36c, type: 2}
@@ -2885,7 +2888,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0, g: 0, b: 0, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}

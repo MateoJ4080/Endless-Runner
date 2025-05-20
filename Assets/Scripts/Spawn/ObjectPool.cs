@@ -4,17 +4,14 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 
 {
-    // Assign in the inspector
     [SerializeField] string poolID;
     [SerializeField] private GameObject prefab;
     [SerializeField] private Queue<GameObject> pool = new();
     public Queue<GameObject> Pool => pool;
     [SerializeField] private int _poolInitialSize;
 
-    // This variable is only to use with the objects that are already in the scene when the game starts, to be able to
-    // easily take them as reference and put them in their corresponding Queue. We need these objects instantiated from before so
-    // we can show an ingame-scene in the background of the first screen.
-
+    // This variable is only to use with the objects that are already in the scene when the game starts, to be able to easily take them as reference and put them in their 
+    // corresponding Queue. We need these objects instantiated from before so we can show an ingame-scene in the background of the first screen.
     [SerializeField] private GameObject[] predefinedObjects;
 
     void Awake()
