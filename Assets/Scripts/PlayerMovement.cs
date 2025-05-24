@@ -6,9 +6,9 @@ public class PlayerMovement : MonoBehaviour
 {
     private Vector3[] _railPositions = new Vector3[]
     {
-        new Vector3(-3.9f, 0f, -41f), // Left
-        new Vector3(0f, 0f, -41f),    // Center
-        new Vector3(3.9f, 0f, -41f)   // Right
+        new Vector3(-2, 0f, -41.6f), // Left
+        new Vector3(0f, 0f, -41.6f),    // Center
+        new Vector3(2f, 0f, -41.6f)   // Right
     };
     private int _currentRail = 1;
 

@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
-using Mono.Cecil.Cil;
-using UnityEngine;
 
+using UnityEngine;
 public class PoolManager : MonoBehaviour
 {
     // Singleton
@@ -34,16 +31,15 @@ public class PoolManager : MonoBehaviour
     // Return next object in Queue from pool. Gets the right pool using an ID from SpawnConfig.cs.
     public GameObject Spawn(SpawnConfig config)
     {
-        // Try to take pool from dictionary bye value
+        // Try to take pool from dictionary by value
         if (pools.TryGetValue(config.poolID, out var pool))
-            // Return object
-            return pool.GetFromPool(config);
+            return pool.GetFromPool();
 
         Debug.LogWarning($"No pool registered with ID: {config.poolID}");
         return null;
     }
 
-    // Return object to pool. Get the right pool using an ID
+    // Return object to pool. Get the right pool from the dictionary using an ID as reference.
     public void Despawn(string id, GameObject obj)
     {
         if (pools.TryGetValue(id, out var pool))
@@ -52,10 +48,45 @@ public class PoolManager : MonoBehaviour
             Debug.LogWarning($"No pool registered with ID: {id}");
     }
 
-    // Take reference of object without manipulating it
     public GameObject PeekAt(string poolID)
     {
         pools.TryGetValue(poolID, out var objectPool);
         return objectPool.Pool.Peek();
+    }
+
+    // Take reference of object without manipulating it.
+    public GameObject PeekSecondLast(string poolID)
+    {
+        if (pools.TryGetValue(poolID, out var objectPool))
+        {
+            var poolArray = objectPool.Pool.ToArray();
+            Debug.Log($"[PeekSecondLast] Pool size: {poolArray.Length} for poolID: {poolID}");
+            if (poolArray.Length >= 2)
+                return poolArray[poolArray.Length - 2];
+            else
+            {
+                Debug.LogWarning("[PeekSecondLast] Not enough objects in pool to get the second last.");
+                return null;
+            }
+        }
+        Debug.LogWarning($"[PeekSecondLast] No pool found with ID: {poolID}");
+        return null;
+    }
+
+    public void DebugPoolOrder(string poolID)
+    {
+        if (pools.TryGetValue(poolID, out var objectPool))
+        {
+            int i = 0;
+            foreach (var obj in objectPool.Pool)
+            {
+                Debug.Log($"Pool[{i}]: {obj.name} at {obj.transform.position}");
+                i++;
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"No pool registered with ID: {poolID}");
+        }
     }
 }

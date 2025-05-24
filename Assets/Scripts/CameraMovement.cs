@@ -5,16 +5,21 @@ using System;
 
 public class CameraMovement : MonoBehaviour
 {
-    private Vector3 camMenuPosition = new(4.4f, 3.6f, -46f);
-    private Vector3 camMenuRotation = new(7, -14, 0);
-    private Vector3 camInGamePosition = new(0, 6.7f, -47.8f);
-    private Vector3 camInGameRotation = new(15, 0, 0);
+    private Vector3 camMenuPosition = new(2.3f, 1.4f, -40.3f);
+    private Vector3 camMenuRotation = new(13.2f, -90, 0);
+    private Vector3 camInGamePosition = new(0, 2.3f, -44f);
+    private Vector3 camInGameRotation = new(17.5f, 0, 0);
 
-    private ScenarioMovement[] objectsToMove;
+    [SerializeField] private Chunk[] chunks;
 
     public event Action OnCameraTransitionComplete;
 
-    private float duration = 1f;
+    private readonly float _duration = 1f;
+
+    void OnEnable()
+    {
+        transform.SetPositionAndRotation(camMenuPosition, Quaternion.Euler(camMenuRotation));
+    }
 
     private IEnumerator MoveCameraThenMoveObjects()
     {
@@ -22,26 +27,22 @@ public class CameraMovement : MonoBehaviour
         Quaternion startRot = Quaternion.Euler(camMenuRotation);
         Quaternion endRot = Quaternion.Euler(camInGameRotation);
 
-        while (elapsed < duration)
+        while (elapsed < _duration)
         {
-            float t = elapsed / duration;
+            float t = elapsed / _duration;
             t = t * t * (3f - 2f * t);
 
-            transform.position = Vector3.Lerp(camMenuPosition, camInGamePosition, elapsed / duration);
+            transform.position = Vector3.Lerp(camMenuPosition, camInGamePosition, elapsed / _duration);
             transform.rotation = Quaternion.Lerp(startRot, endRot, t);
 
             elapsed += Time.deltaTime;
             yield return null;
         }
+        // Ensures camera ends in the exact desired position
         transform.position = camInGamePosition;
 
+        Chunk.MovementEnabled = true;
         OnCameraTransitionComplete?.Invoke();
-        // Start moving objects after camera transition ends
-        objectsToMove = FindObjectsByType<ScenarioMovement>(FindObjectsSortMode.None);
-        foreach (var obj in objectsToMove)
-        {
-            obj.EnableMovement();
-        }
     }
 
     public void StartCameraTransition()
