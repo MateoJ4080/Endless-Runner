@@ -10,8 +10,6 @@ public class CameraMovement : MonoBehaviour
     private Vector3 camInGamePosition = new(0, 2.3f, -44f);
     private Vector3 camInGameRotation = new(17.5f, 0, 0);
 
-    [SerializeField] private Chunk[] chunks;
-
     public event Action OnCameraTransitionComplete;
 
     private readonly float _duration = 1f;
@@ -40,8 +38,6 @@ public class CameraMovement : MonoBehaviour
         }
         // Ensures camera ends in the exact desired position
         transform.position = camInGamePosition;
-
-        Chunk.MovementEnabled = true;
         OnCameraTransitionComplete?.Invoke();
     }
 
