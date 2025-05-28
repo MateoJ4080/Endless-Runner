@@ -9,6 +9,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private int activeChunks = 3;
     [SerializeField] private float despawnAt = -100;
     [SerializeField] private SpawnConfig _chunkConfig;
+    private bool _movementEnabled;
 
     // Set 
     private List<GameObject> chunksInScene = new();
@@ -39,7 +40,12 @@ public class SpawnManager : MonoBehaviour
         // Move all chunks in the scene.
         foreach (var chunk in chunksInScene)
         {
-            chunk.transform.position += Vector3.back * speed * Time.deltaTime;
+            if (_movementEnabled) chunk.transform.position += Vector3.back * speed * Time.deltaTime;
         }
+    }
+
+    public void EnableMovement()
+    {
+        _movementEnabled = true;
     }
 }

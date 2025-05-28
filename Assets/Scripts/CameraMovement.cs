@@ -38,6 +38,8 @@ public class CameraMovement : MonoBehaviour
         }
         // Ensures camera ends in the exact desired position
         transform.position = camInGamePosition;
+
+        FindFirstObjectByType<SpawnManager>().EnableMovement();
         OnCameraTransitionComplete?.Invoke();
     }
 
