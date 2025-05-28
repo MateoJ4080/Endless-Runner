@@ -42,7 +42,7 @@ public class Chunk : MonoBehaviour
         PoolManager.Instance.Despawn("chunk", gameObject);
         GameObject obj = PoolManager.Instance.Spawn(_chunkConfig);
 
-        obj.transform.position = PoolManager.Instance.PeekAt("chunk").transform.position + new Vector3(0, 0, 200);
+        obj.transform.position = new Vector3(0, 0, 200);
         Debug.Log($"<color=yellow>Spawn at: {obj.transform.position} - Reference: {PoolManager.Instance.PeekAt("chunk").transform.position}</color>");
     }
 }

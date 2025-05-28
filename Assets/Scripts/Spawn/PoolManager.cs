@@ -54,25 +54,7 @@ public class PoolManager : MonoBehaviour
         return objectPool.Pool.Peek();
     }
 
-    // Take reference of object without manipulating it.
-    public GameObject PeekSecondLast(string poolID)
-    {
-        if (pools.TryGetValue(poolID, out var objectPool))
-        {
-            var poolArray = objectPool.Pool.ToArray();
-            Debug.Log($"[PeekSecondLast] Pool size: {poolArray.Length} for poolID: {poolID}");
-            if (poolArray.Length >= 2)
-                return poolArray[poolArray.Length - 2];
-            else
-            {
-                Debug.LogWarning("[PeekSecondLast] Not enough objects in pool to get the second last.");
-                return null;
-            }
-        }
-        Debug.LogWarning($"[PeekSecondLast] No pool found with ID: {poolID}");
-        return null;
-    }
-
+    // Debugging method to print the order of objects in a specific pool.
     public void DebugPoolOrder(string poolID)
     {
         if (pools.TryGetValue(poolID, out var objectPool))

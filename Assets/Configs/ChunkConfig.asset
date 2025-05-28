@@ -15,5 +15,5 @@ MonoBehaviour:
   prefab: {fileID: 2974259132799865734, guid: b70ec41e9b7c0684f92e55dd0dbcfac4, type: 3}
   poolID: chunk
   speed: 30
-  despawnAtZ: -100
+  despawnAt: -100
   spawnParent: {fileID: 0}
