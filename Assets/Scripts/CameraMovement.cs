@@ -17,6 +17,7 @@ public class CameraMovement : MonoBehaviour
     void OnEnable()
     {
         transform.SetPositionAndRotation(camMenuPosition, Quaternion.Euler(camMenuRotation));
+        OnCameraTransitionComplete += FindFirstObjectByType<SpawnManager>().EnableMovement;
     }
 
     private IEnumerator MoveCameraThenMoveObjects()
@@ -39,7 +40,6 @@ public class CameraMovement : MonoBehaviour
         // Ensures camera ends in the exact desired position
         transform.position = camInGamePosition;
 
-        FindFirstObjectByType<SpawnManager>().EnableMovement();
         OnCameraTransitionComplete?.Invoke();
     }
 
