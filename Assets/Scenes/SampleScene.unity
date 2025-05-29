@@ -1138,7 +1138,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9294852cef96d4243bc7aaf2e47e9664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunks: []
 --- !u!1 &354522961
 GameObject:
   m_ObjectHideFlags: 0
@@ -2180,7 +2179,7 @@ GameObject:
   m_Layer: 0
   m_Name: SpawnManager
   m_TagString: Untagged
-  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1

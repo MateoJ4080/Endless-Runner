@@ -18,6 +18,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator _animator;
     private PlayerControls _playerControls;
 
+    private bool _canSlide = true;
+
     void Awake()
     {
         _playerControls = new();
@@ -65,8 +67,8 @@ public class PlayerMovement : MonoBehaviour
 
     void OnSlide(InputAction.CallbackContext context)
     {
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Slide")) return;
-
+        if (!_canSlide) return;
+        _canSlide = false;
         _animator.ResetTrigger("Slide");
         _animator.SetTrigger("Slide");
     }
@@ -77,5 +79,12 @@ public class PlayerMovement : MonoBehaviour
         _playerControls.Player.MoveLeft.performed += OnMoveLeft;
         _playerControls.Player.MoveRight.performed += OnMoveRight;
         _playerControls.Player.Slide.performed += OnSlide;
+    }
+
+    // Called by event in last frame of the slide animation
+    public void EnableSlide()
+    {
+        Debug.Log("Enabling slide");
+        _canSlide = true;
     }
 }
