@@ -40,7 +40,11 @@ public class SpawnManager : MonoBehaviour
         // Move all chunks in the scene.
         foreach (var chunk in chunksInScene)
         {
-            if (_movementEnabled) chunk.transform.position += Vector3.back * speed * Time.deltaTime;
+            if (_movementEnabled)
+            {
+                Rigidbody chunkRb = chunk.GetComponent<Rigidbody>();
+                chunkRb.MovePosition(chunkRb.position + speed * Time.deltaTime * Vector3.back);
+            }
         }
     }
 

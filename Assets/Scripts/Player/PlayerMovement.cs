@@ -4,21 +4,19 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    private int _currentRail = 1;
     private Vector3[] _railPositions = new Vector3[]
     {
         new Vector3(-2, 0f, -41.6f), // Left
         new Vector3(0f, 0f, -41.6f),    // Center
         new Vector3(2f, 0f, -41.6f)   // Right
     };
-    private int _currentRail = 1;
-
     [SerializeField] private int _transitionSpeed;
+    private bool _canSlide = true;
 
     [SerializeField] private CameraMovement _cameraMovement;
     [SerializeField] private Animator _animator;
     private PlayerControls _playerControls;
-
-    private bool _canSlide = true;
 
     void Awake()
     {
@@ -28,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Debug.Log(_currentRail);
-        Vector3 targetPos = _railPositions[_currentRail];
+        Vector3 targetPos = new Vector3(_railPositions[_currentRail].x, transform.position.y, _railPositions[_currentRail].z);
         transform.position = Vector3.MoveTowards(transform.position, targetPos, _transitionSpeed * Time.deltaTime);
     }
 
