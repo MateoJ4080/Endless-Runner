@@ -6,6 +6,7 @@ TagManager:
   tags:
   - CinemachineTarget
   - Chunk
+  - Ramp
   layers:
   - Default
   - TransparentFX

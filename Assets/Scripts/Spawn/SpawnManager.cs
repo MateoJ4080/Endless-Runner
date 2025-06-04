@@ -5,8 +5,6 @@ public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private string chunkPoolID = "chunk";
     [SerializeField] private float speed = 30;
-    [SerializeField] private float chunkLength = 100;
-    [SerializeField] private int activeChunks = 3;
     [SerializeField] private float despawnAt = -100;
     [SerializeField] private SpawnConfig _chunkConfig;
     private bool _movementEnabled;
@@ -42,8 +40,8 @@ public class SpawnManager : MonoBehaviour
         {
             if (_movementEnabled)
             {
-                Rigidbody chunkRb = chunk.GetComponent<Rigidbody>();
-                chunkRb.MovePosition(chunkRb.position + speed * Time.deltaTime * Vector3.back);
+                chunk.transform.position += Vector3.back * speed * Time.deltaTime;
+
             }
         }
     }

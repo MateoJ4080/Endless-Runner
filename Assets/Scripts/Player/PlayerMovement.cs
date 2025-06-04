@@ -27,7 +27,8 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log(_currentRail);
         Vector3 targetPos = new Vector3(_railPositions[_currentRail].x, transform.position.y, _railPositions[_currentRail].z);
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, _transitionSpeed * Time.deltaTime);
+        Vector3 movement = Vector3.MoveTowards(transform.position, targetPos, _transitionSpeed * Time.deltaTime) - transform.position;
+        GetComponent<CharacterController>().Move(movement);
     }
 
     void OnEnable()

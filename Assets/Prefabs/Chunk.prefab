@@ -95,7 +95,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9031753468264915674}
-  - component: {fileID: 5370605487527665800}
   m_Layer: 0
   m_Name: Chunk
   m_TagString: Untagged
@@ -121,21 +120,6 @@ Transform:
   - {fileID: 3214837002367392507}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5370605487527665800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2974259132799865734}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93c9a85fb177ebe4c8c7c7b115910351, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spawnPoints: []
-  _chunkConfig: {fileID: 11400000, guid: 8567ea58e08cda2449f053082e58063d, type: 2}
-  _obstacleConfigs: []
 --- !u!1 &5616882702047371406
 GameObject:
   m_ObjectHideFlags: 0

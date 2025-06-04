@@ -1,50 +1,57 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(CharacterController))]
 public class PlayerGrounding : MonoBehaviour
 {
-    [SerializeField] private float groundCheckDistance = 1.0f;
-    [SerializeField] private float sphereRadius = 0.3f;
-    [SerializeField] private float stickForce = 30f;
+    private CharacterController controller;
+    [SerializeField] private float rayDistance = 2f;
+    [SerializeField] private float heightOffset = 0.05f;
     [SerializeField] private LayerMask rampLayer;
-
-    private Rigidbody _rb;
-    private bool _onRamp;
-    private RaycastHit _lastHit;
+    [SerializeField] private Color rayColor;
 
     void Awake()
     {
-        _rb = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        Vector3 origin = transform.position + Vector3.up * 0.1f;
+        SnapToGround();
+    }
+
+    void SnapToGround()
+    {
+        Vector3 origin = transform.position + Vector3.up * (controller.center.y + controller.height / 2f);
         Vector3 direction = Vector3.down;
 
-        _onRamp = false;
-
-        if (Physics.SphereCast(origin, sphereRadius, direction, out _lastHit, groundCheckDistance, rampLayer))
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, controller.height * 1.5f, rampLayer))
         {
-            _onRamp = true;
-            _rb.AddForce(Vector3.down * stickForce, ForceMode.Impulse);
+            Debug.Log("Raycast hit");
+            if (hit.collider.CompareTag("Ramp"))
+            {
+                Debug.Log("Hit collider");
+                Vector3 targetPos = hit.point;
+                transform.position = targetPos;
+                return;
+            }
+        }
+        else
+        {
+            // Apply gravity only in Y
+            Debug.Log("Applying gravity");
+            float gravityY = Physics.gravity.y * Time.deltaTime;
+            controller.Move(new Vector3(0, gravityY, 0));
         }
     }
 
     void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
+        if (!TryGetComponent<CharacterController>(out var controller)) return;
 
-        Vector3 origin = transform.position + Vector3.up * 0.1f;
+        Vector3 origin = transform.position + Vector3.up * (controller.center.y + controller.height / 2f);
         Vector3 direction = Vector3.down;
-        float step = 0.1f;
 
-        for (float i = 0; i < groundCheckDistance; i += step)
-        {
-            Vector3 point = origin + direction * i;
-            Gizmos.DrawWireSphere(point, sphereRadius);
-        }
-
-        Gizmos.DrawWireSphere(origin + direction * groundCheckDistance, sphereRadius);
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(origin, origin + direction * (controller.height * 1.5f));
     }
 }
